@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="【经销商】核销系统中台" parallel="false" allow-return-values="true">
+    <test name="中台经销商核销单接口" allow-return-values="true" preserve-order="true">
+        <!--指定执行包：包中的类全会执行，包中的包不会被执行-->
+        <packages>
+            <package name="com.yfrao.autorobot" />
+        </packages>
+    </test>
+</suite>

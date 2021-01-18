@@ -7,10 +7,4 @@ import org.testng.annotations.Test;
 @SpringBootTest
 class AutoRobotApplicationTests {
 
-
-    @Test
-    void begin() {
-
-    }
-
 }

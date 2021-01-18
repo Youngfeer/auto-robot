@@ -1,5 +1,8 @@
 package com.yfrao.autorobot.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -11,6 +14,7 @@ import java.util.*;
 public class StartAppiumServer {
 
     public Process process;
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     public void startServcer() {
 
@@ -19,6 +23,9 @@ public class StartAppiumServer {
             List<String> executinfo = executed("adb devices", true, 0);
             executinfo.remove(0);
             executinfo.remove(executinfo.size() - 1);
+            if(executinfo.size() < 1){
+                logger.error("无可用设备！！！");
+            }
             String uuid = executinfo.get(0).split("\t")[0];
             String logStr = "";
             Date dNow = new Date();
