@@ -12,10 +12,7 @@ import java.io.IOException;
 @SpringBootTest
 public class AutoStartTest extends BaseTest{
 
-    @BeforeClass
-    public void initStart(){
-        super.initApp();
-    }
+
     @Test
     public void autoBegin() throws IOException {
         EnterIntoSmallProgram enterIntoSmallProgram = new EnterIntoSmallProgram(driver);
