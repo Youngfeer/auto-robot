@@ -18,6 +18,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.io.File;
@@ -33,20 +34,26 @@ public class HttpExecute {
         String requetMethod = requestBase.getRequestType().toLowerCase();
         switch (requetMethod){
             case "get":
-                HttpGet httpGet = new HttpGet();
+                HttpGet httpGet = new HttpGet(requestBase.getUrl());
                 initHttpGet(httpGet, requestBase.getHeader());
                 response = client.execute(httpGet);
-                return response.getEntity().toString();
+                HttpEntity getEntity = response.getEntity();
+                String getRes = EntityUtils.toString(getEntity);
+                return getRes;
             case "post":
                 HttpPost httpPost = new HttpPost();
                 initHttpPost(httpPost, requestBase);
                 response = client.execute(httpPost);
-                return response.getEntity().toString();
+                HttpEntity postEntity = response.getEntity();
+                String postRes = EntityUtils.toString(postEntity);
+                return postRes;
             case "post_upload":
                 HttpPost httpMutil = new HttpPost();
                 initHttpMutil(httpMutil,requestBase);
                 response = client.execute(httpMutil);
-                return response.getEntity().toString();
+                HttpEntity upEntity = response.getEntity();
+                String upRes = EntityUtils.toString(upEntity);
+                return upRes;
             default:
                 System.out.println("请求方式不支持，请确认！");
 

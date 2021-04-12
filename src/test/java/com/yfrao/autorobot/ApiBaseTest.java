@@ -3,11 +3,13 @@ package com.yfrao.autorobot;
 
 import com.yfrao.autoapi.BaseRequest.HttpRequestBase;
 import com.yfrao.autoapi.util.HttpExecute;
+import com.yfrao.autoapi.util.JsonCompareUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.DataProvider;
 
 import java.io.BufferedInputStream;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @SpringBootTest
-public class ApiBaseTest {
+public class ApiBaseTest extends AbstractTestNGSpringContextTests {
 
     public static final String GET_DATA_BY_EXCEL = "getDataByExcel";
     // 定义测试数据存放的路径
@@ -161,8 +163,13 @@ public class ApiBaseTest {
         res = httpExecute.execute(httpRequest);
         if(StringUtils.isBlank(res)){
             return false;
+        }else{
+            String result = JsonCompareUtil.jsonCompare(res, httpRequest.getExpectResult());
+            if(result.contains("结果：fail") || result.contains("结果：异常")){
+                throw new RuntimeException("http接口返回结果与期望结果不一致。" + result);
+            }
+            return true;
         }
-        return true;
     }
 
 }
