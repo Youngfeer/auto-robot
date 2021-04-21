@@ -20,7 +20,7 @@ public class ScreenShoot {
         this.driver= driver;
     }
 
-    public void getScreenShoot(AndroidDriver driver) throws IOException {
+    public void getScreenShoot(AndroidDriver driver) {
         SimpleDateFormat Timeformat = new SimpleDateFormat("yyy-MM-dd-HH-mm-ss");
         String dateString = Timeformat.format(new Date());
         String dirName = System.getProperty("user.dir") + "/screenshoot";
@@ -30,7 +30,11 @@ public class ScreenShoot {
             fileUtil.deleteDirectory(new File(dirName));
         }
         File screen =  driver.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(screen,new File(dirName+"/"+dateString +".jpg"));
+        try {
+            FileUtils.copyFile(screen,new File(dirName+"/"+dateString +".jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

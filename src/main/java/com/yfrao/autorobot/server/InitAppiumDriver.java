@@ -37,7 +37,7 @@ public class InitAppiumDriver {
         }
         //初始化动作，打开测试App
         driver = new AndroidDriver(url,capabilities);
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(35, TimeUnit.SECONDS);
         return driver;
     }
 }

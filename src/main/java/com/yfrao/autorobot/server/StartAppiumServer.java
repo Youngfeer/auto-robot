@@ -1,10 +1,12 @@
 package com.yfrao.autorobot.server;
 
+import com.yfrao.autorobot.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
@@ -15,6 +17,7 @@ public class StartAppiumServer {
 
     public Process process;
     Logger logger = LoggerFactory.getLogger(getClass());
+    FileUtil fileUtil = new FileUtil();
 
     public void startServcer() {
 
@@ -33,6 +36,7 @@ public class StartAppiumServer {
             if (System.getProperty("os.name").contains("indow")) {
                 logStr = System.getProperty("user.dir") + "\\logs\\" + ft.format(dNow) + "-" + uuid + ".log";
             } else {
+                fileUtil.deleteDirectory(new File(System.getProperty("user.dir") + "/logs"));
                 logStr = System.getProperty("user.dir") + "/logs/" + ft.format(dNow) + "-" + uuid + ".log";
             }
             String cmd = "appium --log" + " " + logStr;

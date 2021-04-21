@@ -2,6 +2,7 @@ package com.yfrao.autoapi.util;
 
 import com.yfrao.autoapi.BaseRequest.HttpRequestBase;
 import com.yfrao.autoapi.constant.GlobalVar;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -19,6 +20,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import java.io.File;
@@ -26,8 +29,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.*;
 
-public class HttpExecute {
 
+@Slf4j
+public class HttpExecute {
     public String execute(HttpRequestBase requestBase) throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         CloseableHttpResponse response;
@@ -39,6 +43,8 @@ public class HttpExecute {
                 response = client.execute(httpGet);
                 HttpEntity getEntity = response.getEntity();
                 String getRes = EntityUtils.toString(getEntity);
+//                System.out.println(getRes);
+                log.info(getRes);
                 return getRes;
             case "post":
                 HttpPost httpPost = new HttpPost();
